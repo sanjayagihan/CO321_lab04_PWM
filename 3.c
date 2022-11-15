@@ -6,6 +6,9 @@ increasing order one after the other. (each frequency should be heard for a nota
 time before switching to the next frequency so that it can be heard properly). Keep
 in mind that humans can hear frequencies in the range 20Hz - 20,000Hz only.
 */
+
+#include<avr/io.h>
+
 void blink_ms_delay(){                                  
     TCNT1 = 0;                                          // Set timer1 to 0
     TCCR1A = 0;                                         // Set timer1A to to normal mode
@@ -22,8 +25,6 @@ void frequency(int value){
     TCCR0A |= (1<<COM0A1) | (1<<WGM00) | (1<<WGM01);    // Set fast PWM mode and non-inverting mode
     TCCR0B = 3;                                         // Set timer0 prescaler to 64 (CS02=0,CS01=1,CS00=1)
 }
-
-#include<avr/io.h>
 
 int main(){
     DDRD |= (1<<PD6);                                   // Fart PWM output at OCOA pin
