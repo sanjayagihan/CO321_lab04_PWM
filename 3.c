@@ -6,7 +6,6 @@ increasing order one after the other. (each frequency should be heard for a nota
 time before switching to the next frequency so that it can be heard properly). Keep
 in mind that humans can hear frequencies in the range 20Hz - 20,000Hz only.
 */
-
 #include<avr/io.h>
 
 void blink_ms_delay(){                                  
@@ -27,13 +26,21 @@ void frequency(int value){
 }
 
 int main(){
-    DDRD |= (1<<PD6);                                   // Fart PWM output at OCOA pin
-    int frequencies[4] = {25,100,175,255};               // Set frequencies array
+    DDRD |= (1<<PD6);                                  // Fart PWM output at OCOA pin
+    int prescalars[4] = {2,175,255};                   // Set frequencies array
     while(1){
-        for(int i=0;i<4;i++){                           // Loop through frequencies array
-            frequency(frequencies[i]);                  // Call frequency function, change frequency
-            blink_ms_delay();                           // call the blink_ms_delay function
+        for(int i=0;i<4;i++){                          // Loop through frequencies array
+            frequency(prescalars[i]);                  // Call frequency function, change frequency
+            blink_ms_delay();                          // call the blink_ms_delay function
         }
     }
     return 0;
 }
+
+
+/*
+(16*1000000)/(256*8)   = 7812.5
+(16*1000000)/(256*32)  = 1953.125
+(16*1000000)/(256*64)  = 976.56
+(16*1000000)/(256*128) = 488.28125
+*/
