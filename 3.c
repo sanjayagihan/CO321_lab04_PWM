@@ -20,14 +20,14 @@ void blink_ms_delay(){
 
 void frequency(int value){
     TCNT0 = 0;                                          
-    OCR0A = value;                                      // Set OCR0A to value , change PWM duty cycle
+    OCR0A = 127;                                        // Set OCR0A to value , change PWM duty cycle
     TCCR0A |= (1<<COM0A1) | (1<<WGM00) | (1<<WGM01);    // Set fast PWM mode and non-inverting mode
-    TCCR0B = 3;                                         // Set timer0 prescaler to 64 (CS02=0,CS01=1,CS00=1)
+    TCCR0B = value;                                     // Set timer0 prescaler to 64 (CS02=0,CS01=1,CS00=1)
 }
 
 int main(){
-    DDRD |= (1<<PD6);                                  // Fart PWM output at OCOA pin
-    int prescalars[4] = {2,175,255};                   // Set frequencies array
+    DDRD |= (1<<PD6);                                   // Fart PWM output at OCOA pin
+    int prescalars[4] = {2,3,4,5};                      // Set frequencies array
     while(1){
         for(int i=0;i<4;i++){                          // Loop through frequencies array
             frequency(prescalars[i]);                  // Call frequency function, change frequency
@@ -39,8 +39,8 @@ int main(){
 
 
 /*
-(16*1000000)/(256*8)   = 7812.5
-(16*1000000)/(256*32)  = 1953.125
-(16*1000000)/(256*64)  = 976.56
-(16*1000000)/(256*128) = 488.28125
+(16*1000000)/(256*8)   = 
+(16*1000000)/(256*64)  = 
+(16*1000000)/(256*256)  = 
+(16*1000000)/(256*1024) = 
 */
