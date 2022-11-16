@@ -20,7 +20,7 @@ void blink_ms_delay(){
 
 void frequency(int value){
     TCNT0 = 0;                                          
-    OCR0A = 127;                                        // Set OCR0A to value , change PWM duty cycle
+    OCR0A = 255;                                        // Set OCR0A to 255
     TCCR0A |= (1<<COM0A1) | (1<<WGM00) | (1<<WGM01);    // Set fast PWM mode and non-inverting mode
     TCCR0B = value;                                     // Set timer0 prescaler to 64 (CS02=0,CS01=1,CS00=1)
 }
